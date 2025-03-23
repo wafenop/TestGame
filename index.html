@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لعبة خلية الحروف</title>
+    <title>لعبة خلية الحروف </title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
 </head>
@@ -11,8 +11,8 @@
     <div class="container">
         <!-- عنوان اللعبة -->
         <div class="header">
-            <h1 class="game-title"><span>  لعبة </span>خلية الحروف</h1>
-            <p class="game-subtitle">اختبر معلوماتك بحروف !!</p>
+            <h1 class="game-title"><i class="fas fa-chess-board"></i> <span>لعبة</span> خلية الحروف</h1>
+            <p class="game-subtitle">اختبر معلوماتك بحروف !</p>
         </div>
 
         <!-- أزرار التحكم باللون -->
@@ -22,15 +22,13 @@
                 <button class="color-btn red-btn" id="redBtn"><i class="fas fa-paint-brush"></i> الأحمر</button>
                 <button class="color-btn cream-btn" id="creamBtn"><i class="fas fa-paint-brush"></i> الأصلي</button>
                 <button class="color-btn reset-btn" id="resetBtn"><i class="fas fa-eraser"></i> مسح الكل</button>
-                <button class="color-btn random-btn" id="randomBtn"><i class="fas fa-random"></i> عشوائي</button>
+                <button class="color-btn random-btn" id="randomBtn"><i class="fas fa-random"></i> حرف عشوائي</button>
+                <button class="color-btn shuffle-btn" id="shuffleBtn"><i class="fas fa-sync-alt"></i> تبديل الحروف</button>
             </div>
         </div>
 
         <div class="status-text" id="statusText">
             اختر لوناً ثم انقر على الخلايا لتغيير لونها
-            <div class="timer-bar" id="timerBar">
-                <div class="timer-progress" id="timerProgress"></div>
-            </div>
         </div>
 
         <div class="honeycomb-container">
@@ -45,47 +43,47 @@
 
                 <!-- الصف الثاني - حروف مع خلايا خضراء على الجانبين -->
                 <div class="hex green"></div>
-                <div class="hex cream letter">ي</div>
-                <div class="hex cream letter">د</div>
-                <div class="hex cream letter">ج</div>
-                <div class="hex cream letter">ع</div>
+                <div class="hex cream letter">أ</div>
+                <div class="hex cream letter">ب</div>
                 <div class="hex cream letter">ت</div>
+                <div class="hex cream letter">ث</div>
+                <div class="hex cream letter">ج</div>
                 <div class="hex green"></div>
 
                 <!-- الصف الثالث - حروف مع خلايا خضراء على الجانبين -->
                 <div class="hex green"></div>
-                <div class="hex cream letter">غ</div>
-                <div class="hex cream letter">و</div>
                 <div class="hex cream letter">ح</div>
-                <div class="hex cream letter">ن</div>
+                <div class="hex cream letter">خ</div>
+                <div class="hex cream letter">د</div>
+                <div class="hex cream letter">ذ</div>
                 <div class="hex cream letter">ر</div>
                 <div class="hex green"></div>
 
                 <!-- الصف الرابع - حروف مع خلايا خضراء على الجانبين -->
                 <div class="hex green"></div>
-                <div class="hex cream letter">ب</div>
+                <div class="hex cream letter">ز</div>
+                <div class="hex cream letter">س</div>
+                <div class="hex cream letter">ش</div>
                 <div class="hex cream letter">ص</div>
-                <div class="hex cream letter">أ</div>
-                <div class="hex cream letter">ذ</div>
-                <div class="hex cream letter">ل</div>
+                <div class="hex cream letter">ض</div>
                 <div class="hex green"></div>
 
                 <!-- الصف الخامس - حروف مع خلايا خضراء على الجانبين -->
                 <div class="hex green"></div>
-                <div class="hex cream letter">ز</div>
-                <div class="hex cream letter">ث</div>
-                <div class="hex cream letter">ق</div>
+                <div class="hex cream letter">ط</div>
+                <div class="hex cream letter">ظ</div>
+                <div class="hex cream letter">ع</div>
+                <div class="hex cream letter">غ</div>
                 <div class="hex cream letter">ف</div>
-                <div class="hex cream letter">ش</div>
                 <div class="hex green"></div>
 
                 <!-- الصف السادس - حروف مع خلايا خضراء على الجانبين -->
                 <div class="hex green"></div>
-                <div class="hex cream letter">ح</div>
-                <div class="hex cream letter">ط</div>
-                <div class="hex cream letter">س</div>
-                <div class="hex cream letter">ت</div>
-                <div class="hex cream letter">خ</div>
+                <div class="hex cream letter">ق</div>
+                <div class="hex cream letter">ك</div>
+                <div class="hex cream letter">ل</div>
+                <div class="hex cream letter">م</div>
+                <div class="hex cream letter">ن</div>
                 <div class="hex green"></div>
 
                 <!-- الصف السابع - أحمر -->
@@ -95,6 +93,29 @@
                 <div class="hex pink"></div>
                 <div class="hex pink"></div>
                 <div class="hex pink"></div>
+            </div>
+        </div>
+
+        <div class="game-stats">
+            <div class="stat-box">
+                <i class="fas fa-leaf"></i>
+                <span>الخلايا الخضراء: <span id="greenCount">0</span></span>
+            </div>
+            <div class="stat-box">
+                <i class="fas fa-fire"></i>
+                <span>الخلايا الحمراء: <span id="redCount">0</span></span>
+            </div>
+        </div>
+
+        <!-- مربع حوار التأكيد -->
+        <div id="confirmDialog" class="confirm-dialog">
+            <div class="dialog-content">
+                <h3>تأكيد العملية</h3>
+                <p>سيتم حذف جميع التقدم الحالي وتبديل الحروف. هل أنت متأكد؟</p>
+                <div class="dialog-buttons">
+                    <button id="confirmYes" class="dialog-btn yes-btn">موافق</button>
+                    <button id="confirmNo" class="dialog-btn no-btn">إلغاء</button>
+                </div>
             </div>
         </div>
 
