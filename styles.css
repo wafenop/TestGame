@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Cairo:wght@400;700;900&display=swap');
         
 :root {
+    /* ألوان الوضع العادي */
     --primary-color: #4caf50;
     --primary-dark: #388e3c;
     --secondary-color: #ff5252;
@@ -10,7 +11,16 @@
     --cream-color: #fffde7;
     --dark-color: #1a237e;
     --bg-color: #f5f7fa;
+    --bg-gradient: radial-gradient(circle, #f7f9fc 0%, #e4e8ed 100%);
     --text-color: #333;
+    --title-color: #303f9f;
+    --card-bg: white;
+    --footer-color: #777;
+    --btn-bg: #e9ecef;
+    --reset-btn-bg: #f44336;
+    --reset-btn-color: white;
+    --theme-btn-bg: #303f9f;
+    --theme-btn-color: white;
     --shadow-sm: 0 3px 6px rgba(0,0,0,0.15);
     --shadow-md: 0 5px 12px rgba(0,0,0,0.2);
     --shadow-lg: 0 12px 28px rgba(0,0,0,0.25);
@@ -18,6 +28,38 @@
     --transition-fast: all 0.2s ease;
     --transition-normal: all 0.3s ease;
     --transition-slow: all 0.5s ease;
+    --hex-border: rgba(0,0,0,0.2);
+    --honeycomb-gradient: linear-gradient(135deg, #1a237e, #283593);
+    --honeycomb-border: rgba(255, 255, 255, 0.1);
+}
+
+/* ألوان الوضع الليلي */
+.dark-mode {
+    --primary-color: #66bb6a;
+    --primary-dark: #43a047;
+    --secondary-color: #ff7043;
+    --secondary-dark: #e64a19;
+    --accent-color: #ab47bc;
+    --accent-dark: #8e24aa;
+    --cream-color: #e0e0e0; /* رمادي فاتح */
+    --dark-color: #0d1117;
+    --bg-color: #121212;
+    --bg-gradient: radial-gradient(circle, #1f1f1f 0%, #121212 100%);
+    --text-color: #333; /* للخلايا */
+    --title-color: #81d4fa; /* لون عنوان اللعبة في الوضع الليلي */
+    --card-bg: #1e1e1e;
+    --footer-color: #aaaaaa;
+    --btn-bg: #2d2d2d;
+    --reset-btn-bg: #e53935;
+    --reset-btn-color: white;
+    --theme-btn-bg: #5c6bc0;
+    --theme-btn-color: white;
+    --shadow-sm: 0 3px 6px rgba(0,0,0,0.25);
+    --shadow-md: 0 5px 12px rgba(0,0,0,0.3);
+    --shadow-lg: 0 12px 28px rgba(0,0,0,0.4);
+    --hex-border: rgba(0,0,0,0.2);
+    --honeycomb-gradient: linear-gradient(135deg, #0a101f, #16193b);
+    --honeycomb-border: rgba(255, 255, 255, 0.05);
 }
 
 * {
@@ -37,7 +79,8 @@ body {
     background-color: var(--bg-color);
     font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
     color: var(--text-color);
-    background-image: radial-gradient(circle, #f7f9fc 0%, #e4e8ed 100%);
+    background-image: var(--bg-gradient);
+    transition: var(--transition-normal);
 }
 
 .container {
@@ -47,6 +90,50 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    position: relative;
+}
+
+/* زر تبديل الوضع الليلي */
+.theme-toggle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    background-color: var(--theme-btn-bg);
+    color: var(--theme-btn-color);
+    cursor: pointer;
+    font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
+    font-weight: bold;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-normal);
+}
+
+.theme-toggle-btn i {
+    font-size: 15px;
+    transition: transform 0.5s ease;
+}
+
+.theme-toggle-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+body.dark-mode .theme-toggle-btn i {
+    transform: rotate(180deg);
+    color: #f9d71c;
+}
+
+body.dark-mode .theme-toggle-btn i.fa-moon::before {
+    content: "\f185";  /* تغيير أيقونة القمر إلى أيقونة الشمس */
 }
 
 .header {
@@ -58,16 +145,18 @@ body {
 .game-title {
     font-size: 3.2rem;
     font-weight: 900;
-    color: var(--text-color);
+    color: var(--title-color);
     margin-bottom: 0.5rem;
     position: relative;
     display: inline-block;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    transition: var(--transition-normal);
 }
 
 .game-title i {
     color: var(--accent-color);
     margin-left: 10px;
+    transition: var(--transition-normal);
 }
 
 .game-title span {
@@ -76,6 +165,7 @@ body {
     background-clip: text;
     color: transparent;
     font-weight: 900;
+    transition: var(--transition-normal);
 }
 
 .game-subtitle {
@@ -83,16 +173,22 @@ body {
     color: #666;
     margin-bottom: 1rem;
     font-weight: 500;
+    transition: var(--transition-normal);
+}
+
+body.dark-mode .game-subtitle {
+    color: #aaa;
 }
 
 .controls-container {
-    background-color: white;
+    background-color: var(--card-bg);
     padding: 20px;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-md);
     margin-bottom: 25px;
     width: 100%;
     border-top: 4px solid var(--primary-color);
+    transition: var(--transition-normal);
 }
 
 .controls {
@@ -164,9 +260,14 @@ body {
     border: 1px solid #e0e0e0;
 }
 
+/* تعديل مظهر زر اللون الأصلي في الوضع الليلي */
+body.dark-mode .cream-btn {
+    border-color: #666;
+}
+
 .reset-btn {
-    background-color: #e9ecef;
-    color: var(--text-color);
+    background-color: var(--reset-btn-bg);
+    color: var(--reset-btn-color);
 }
 
 .random-btn {
@@ -190,8 +291,10 @@ body {
     justify-content: center;
     box-shadow: var(--shadow-lg);
     margin-top: 10px;
-    background-image: linear-gradient(135deg, #1a237e, #283593);
-    border: 5px solid rgba(255, 255, 255, 0.1);
+    background-image: var(--honeycomb-gradient);
+    border: 5px solid var(--honeycomb-border);
+    overflow: hidden; /* منع تجاوز المحتوى */
+    transition: var(--transition-normal);
 }
 
 .honeycomb {
@@ -213,7 +316,7 @@ body {
     font-weight: bold;
     cursor: pointer;
     transition: var(--transition-fast);
-    border: 1px solid rgba(0,0,0,0.2);
+    border: 1px solid var(--hex-border);
     z-index: 1;
     user-select: none;
 }
@@ -226,7 +329,7 @@ body {
 
 .hex.cream {
     background-color: var(--cream-color);
-    color: #000;
+    color: var(--text-color);
 }
 
 .hex.green {
@@ -341,7 +444,7 @@ body {
     padding: 15px 25px;
     font-size: 18px;
     font-weight: bold;
-    background-color: white;
+    background-color: var(--card-bg);
     border-radius: 10px;
     box-shadow: var(--shadow-md);
     width: 100%;
@@ -361,13 +464,14 @@ body {
 .stat-box {
     flex: 1;
     padding: 15px;
-    background-color: white;
+    background-color: var(--card-bg);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
     display: flex;
     align-items: center;
     gap: 10px;
     font-weight: bold;
+    transition: var(--transition-normal);
 }
 
 .stat-box:first-child {
@@ -393,13 +497,14 @@ body {
 .footer {
     margin-top: 30px;
     text-align: center;
-    color: #777;
+    color: var(--footer-color);
     font-size: 14px;
     padding: 15px;
-    background-color: white;
+    background-color: var(--card-bg);
     width: 100%;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
+    transition: var(--transition-normal);
 }
 
 /* مربع حوار التأكيد */
@@ -417,13 +522,14 @@ body {
 }
 
 .dialog-content {
-    background-color: white;
+    background-color: var(--card-bg);
     padding: 25px;
     border-radius: var(--border-radius);
     max-width: 400px;
     width: 90%;
     box-shadow: var(--shadow-lg);
     text-align: center;
+    transition: var(--transition-normal);
 }
 
 .dialog-content h3 {
@@ -436,6 +542,7 @@ body {
     margin-bottom: 20px;
     font-size: 1.1rem;
     line-height: 1.6;
+    color: var(--text-color);
 }
 
 .dialog-buttons {
@@ -469,6 +576,14 @@ body {
     box-shadow: var(--shadow-sm);
 }
 
+/* تحسين مظهر التنسيق في الوضع الليلي */
+body.dark-mode .dialog-content p,
+body.dark-mode .status-text,
+body.dark-mode .stat-box {
+    color: #e0e0e0;
+}
+
+/* تعديلات توافقية للهواتف المحمولة */
 @media (max-width: 700px) {
     .container {
         padding: 10px;
@@ -476,9 +591,15 @@ body {
     
     .honeycomb-container {
         width: 100%;
-        height: auto;
-        min-height: 520px;
+        max-width: 600px;
+        height: 420px;
         padding: 10px;
+    }
+    
+    .honeycomb {
+        transform: scale(0.7);
+        transform-origin: center top;
+        margin: 0 auto;
     }
     
     .controls {
@@ -486,13 +607,17 @@ body {
     }
     
     .color-btn {
-        width: calc(50% - 8px);
+        min-width: 110px;
         font-size: 14px;
-        padding: 10px;
+        padding: 10px 15px;
     }
     
     .game-title {
-        font-size: 2rem;
+        font-size: 2.5rem;
+    }
+    
+    .game-subtitle {
+        font-size: 1.1rem;
     }
     
     .status-text {
@@ -501,18 +626,68 @@ body {
     }
     
     .game-stats {
-        flex-direction: column;
+        flex-direction: row;
         gap: 10px;
+    }
+    
+    .theme-toggle {
+        position: relative;
+        width: 100%;
+        text-align: left;
+        margin-bottom: 15px;
     }
 }
 
 @media (max-width: 500px) {
     .honeycomb {
-        transform: scale(0.85);
+        transform: scale(0.55);
         transform-origin: center top;
     }
     
     .honeycomb-container {
-        height: 460px;
+        height: 380px;
+    }
+    
+    .color-btn {
+        min-width: 100px;
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+    
+    .game-title {
+        font-size: 2rem;
+    }
+    
+    .controls {
+        justify-content: center;
+    }
+    
+    .game-stats {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 400px) {
+    .honeycomb {
+        transform: scale(0.45);
+    }
+    
+    .honeycomb-container {
+        height: 340px;
+    }
+    
+    .color-btn {
+        min-width: 90px;
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+    
+    .controls-container {
+        padding: 15px 10px;
+    }
+    
+    .theme-toggle-btn {
+        font-size: 13px;
+        padding: 6px 12px;
     }
 }
