@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const confirmDialog = document.getElementById('confirmDialog');
     const confirmYes = document.getElementById('confirmYes');
     const confirmNo = document.getElementById('confirmNo');
+    const confirmTitle = document.getElementById('confirmTitle');
+    const confirmMessage = document.getElementById('confirmMessage');
+    const themeToggle = document.getElementById('themeToggle');
 
     // متغيرات تتبع الحالة
     let currentColor = null;
@@ -21,6 +24,14 @@ document.addEventListener('DOMContentLoaded', function() {
     let redCellsCount = 0;
     let highlightedCell = null;
     let randomLetterTimeout = null;
+    let currentAction = null; // لتتبع نوع الإجراء الحالي (مسح أو تبديل)
+    let darkMode = localStorage.getItem('darkMode') === 'enabled';
+
+    // تهيئة الوضع الليلي عند تحميل الصفحة
+    if (darkMode) {
+        document.body.classList.add('dark-mode');
+        updateThemeToggleText();
+    }
 
     // تهيئة العدادات
     updateCounters();
@@ -42,8 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     resetBtn.addEventListener('click', function() {
-        resetAllCells();
-        statusText.innerText = 'تم مسح جميع الألوان!';
+        showConfirmDialog('reset');
     });
 
     randomBtn.addEventListener('click', function() {
@@ -52,18 +62,28 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     shuffleBtn.addEventListener('click', function() {
-        showConfirmDialog();
+        showConfirmDialog('shuffle');
     });
 
     confirmYes.addEventListener('click', function() {
         hideConfirmDialog();
-        shuffleLetters();
-        resetAllCells();
-        statusText.innerText = 'تم تبديل الحروف بنجاح!';
+        if (currentAction === 'reset') {
+            resetAllCells();
+            statusText.innerText = 'تم مسح جميع الألوان!';
+        } else if (currentAction === 'shuffle') {
+            shuffleLetters();
+            resetAllCells();
+            statusText.innerText = 'تم تبديل الحروف بنجاح!';
+        }
     });
 
     confirmNo.addEventListener('click', function() {
         hideConfirmDialog();
+    });
+
+    // إضافة مستمع الحدث لزر تبديل الوضع الليلي
+    themeToggle.addEventListener('click', function() {
+        toggleDarkMode();
     });
 
     // إضافة مستمعي الأحداث للخلايا
@@ -99,6 +119,30 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (color === 'cream') {
             creamBtn.style.boxShadow = '0 0 0 3px #e0e0e0';
             creamBtn.style.transform = 'translateY(-3px)';
+        }
+    }
+
+    // تبديل الوضع الليلي
+    function toggleDarkMode() {
+        darkMode = !darkMode;
+        
+        if (darkMode) {
+            document.body.classList.add('dark-mode');
+            localStorage.setItem('darkMode', 'enabled');
+        } else {
+            document.body.classList.remove('dark-mode');
+            localStorage.setItem('darkMode', null);
+        }
+        
+        updateThemeToggleText();
+    }
+    
+    // تحديث نص زر تبديل الوضع
+    function updateThemeToggleText() {
+        if (darkMode) {
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i> <span>الوضع العادي</span>';
+        } else {
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i> <span>الوضع الليلي</span>';
         }
     }
 
@@ -192,7 +236,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // عرض مربع حوار التأكيد
-    function showConfirmDialog() {
+    function showConfirmDialog(action) {
+        currentAction = action;
+        
+        if (action === 'reset') {
+            confirmTitle.innerText = 'تأكيد عملية المسح';
+            confirmMessage.innerText = 'سيتم مسح جميع التقدم الحالي. هل أنت متأكد؟';
+        } else if (action === 'shuffle') {
+            confirmTitle.innerText = 'تأكيد العملية';
+            confirmMessage.innerText = 'سيتم حذف جميع التقدم الحالي وتبديل الحروف. هل أنت متأكد؟';
+        }
+        
         confirmDialog.style.display = 'flex';
     }
 
@@ -237,4 +291,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return array;
     }
+
+    // إضافة دعم للأجهزة المحمولة (تعديل أحجام الخلايا حسب حجم الشاشة)
+    function resizeHoneycomb() {
+        const container = document.querySelector('.honeycomb-container');
+        const windowWidth = window.innerWidth;
+        
+        if (windowWidth <= 400) {
+            container.style.height = '340px';
+        } else if (windowWidth <= 500) {
+            container.style.height = '380px';
+        } else if (windowWidth <= 700) {
+            container.style.height = '420px';
+        } else {
+            container.style.height = '540px';
+        }
+    }
+
+    // استدعاء دالة تغيير الحجم عند تحميل الصفحة
+    resizeHoneycomb();
+    
+    // استدعاء دالة تغيير الحجم عند تغيير حجم النافذة
+    window.addEventListener('resize', resizeHoneycomb);
 });
