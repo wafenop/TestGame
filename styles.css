@@ -4,7 +4,7 @@
     /* ألوان الوضع العادي */
     --primary-color: #4caf50;
     --primary-dark: #388e3c;
-    --secondary-color: #ff5252;
+    --secondary-color: #ff5252; /* لون أحمر للوضعين */
     --secondary-dark: #d32f2f;
     --accent-color: #9c27b0;
     --accent-dark: #7b1fa2;
@@ -13,13 +13,13 @@
     --bg-color: #f5f7fa;
     --bg-gradient: radial-gradient(circle, #f7f9fc 0%, #e4e8ed 100%);
     --text-color: #333;
-    --title-color: #303f9f;
+    --title-color: #000000; /* لون عنوان اللعبة أسود */
     --card-bg: white;
     --footer-color: #777;
     --btn-bg: #e9ecef;
-    --reset-btn-bg: #f44336;
+    --reset-btn-bg: #607d8b; /* تغيير زر المسح إلى لون رمادي مزرق */
     --reset-btn-color: white;
-    --theme-btn-bg: #303f9f;
+    --theme-btn-bg: #000000; /* زر الوضع الليلي أسود */
     --theme-btn-color: white;
     --shadow-sm: 0 3px 6px rgba(0,0,0,0.15);
     --shadow-md: 0 5px 12px rgba(0,0,0,0.2);
@@ -37,8 +37,8 @@
 .dark-mode {
     --primary-color: #66bb6a;
     --primary-dark: #43a047;
-    --secondary-color: #ff7043;
-    --secondary-dark: #e64a19;
+    --secondary-color: #ff5252; /* الاحتفاظ باللون الأحمر وليس البرتقالي */
+    --secondary-dark: #d32f2f;
     --accent-color: #ab47bc;
     --accent-dark: #8e24aa;
     --cream-color: #e0e0e0; /* رمادي فاتح */
@@ -46,14 +46,14 @@
     --bg-color: #121212;
     --bg-gradient: radial-gradient(circle, #1f1f1f 0%, #121212 100%);
     --text-color: #333; /* للخلايا */
-    --title-color: #81d4fa; /* لون عنوان اللعبة في الوضع الليلي */
+    --title-color: #ffffff; /* لون عنوان اللعبة أبيض في الوضع الليلي */
     --card-bg: #1e1e1e;
     --footer-color: #aaaaaa;
     --btn-bg: #2d2d2d;
-    --reset-btn-bg: #e53935;
+    --reset-btn-bg: #607d8b; /* نفس لون زر المسح في الوضعين */
     --reset-btn-color: white;
-    --theme-btn-bg: #5c6bc0;
-    --theme-btn-color: white;
+    --theme-btn-bg: #ffffff; /* زر الوضع الليلي أبيض في الوضع الليلي */
+    --theme-btn-color: #333;
     --shadow-sm: 0 3px 6px rgba(0,0,0,0.25);
     --shadow-md: 0 5px 12px rgba(0,0,0,0.3);
     --shadow-lg: 0 12px 28px rgba(0,0,0,0.4);
@@ -138,15 +138,14 @@ body.dark-mode .theme-toggle-btn i.fa-moon::before {
 
 .header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem; /* تقليل المسافة بعد حذف الشعار */
     width: 100%;
 }
 
 .game-title {
-    font-size: 3.2rem;
+    font-size: 3rem;
     font-weight: 900;
     color: var(--title-color);
-    margin-bottom: 0.5rem;
     position: relative;
     display: inline-block;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
@@ -168,17 +167,7 @@ body.dark-mode .theme-toggle-btn i.fa-moon::before {
     transition: var(--transition-normal);
 }
 
-.game-subtitle {
-    font-size: 1.3rem;
-    color: #666;
-    margin-bottom: 1rem;
-    font-weight: 500;
-    transition: var(--transition-normal);
-}
-
-body.dark-mode .game-subtitle {
-    color: #aaa;
-}
+/* حذف .game-subtitle */
 
 .controls-container {
     background-color: var(--card-bg);
@@ -260,7 +249,6 @@ body.dark-mode .game-subtitle {
     border: 1px solid #e0e0e0;
 }
 
-/* تعديل مظهر زر اللون الأصلي في الوضع الليلي */
 body.dark-mode .cream-btn {
     border-color: #666;
 }
@@ -281,7 +269,8 @@ body.dark-mode .cream-btn {
 }
 
 .honeycomb-container {
-    width: 630px;
+    width: 100%;
+    max-width: 630px;
     height: 540px;
     position: relative;
     background-color: var(--dark-color);
@@ -289,6 +278,7 @@ body.dark-mode .cream-btn {
     border-radius: var(--border-radius);
     display: flex;
     justify-content: center;
+    align-items: center; /* ضبط التوسيط العمودي */
     box-shadow: var(--shadow-lg);
     margin-top: 10px;
     background-image: var(--honeycomb-gradient);
@@ -301,6 +291,8 @@ body.dark-mode .cream-btn {
     position: relative;
     width: 449px;
     height: 500px;
+    margin: 0 auto; /* توسيط أفقي */
+    transform-origin: center center; /* تعديل نقطة الأصل للتحويل */
 }
 
 .hex {
@@ -598,7 +590,7 @@ body.dark-mode .stat-box {
     
     .honeycomb {
         transform: scale(0.7);
-        transform-origin: center top;
+        transform-origin: center center; /* تعديل نقطة الأصل للتحويل للتوسيط */
         margin: 0 auto;
     }
     
@@ -614,10 +606,6 @@ body.dark-mode .stat-box {
     
     .game-title {
         font-size: 2.5rem;
-    }
-    
-    .game-subtitle {
-        font-size: 1.1rem;
     }
     
     .status-text {
@@ -641,7 +629,7 @@ body.dark-mode .stat-box {
 @media (max-width: 500px) {
     .honeycomb {
         transform: scale(0.55);
-        transform-origin: center top;
+        transform-origin: center center;
     }
     
     .honeycomb-container {
