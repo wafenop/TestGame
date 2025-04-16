@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="rtl">
+<html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,14 @@
 </head>
 <body>
     <div class="container">
+        <!-- زر تبديل الوضع الليلي -->
+        <div class="theme-toggle">
+            <button id="themeToggle" class="theme-toggle-btn">
+                <i class="fas fa-moon"></i>
+                <span>الوضع الليلي</span>
+            </button>
+        </div>
+
         <!-- عنوان اللعبة -->
         <div class="header">
             <h1 class="game-title"><i class="fas fa-chess-board"></i> <span>لعبة</span> خلية الحروف</h1>
@@ -110,8 +118,8 @@
         <!-- مربع حوار التأكيد -->
         <div id="confirmDialog" class="confirm-dialog">
             <div class="dialog-content">
-                <h3>تأكيد العملية</h3>
-                <p>سيتم حذف جميع التقدم الحالي وتبديل الحروف. هل أنت متأكد؟</p>
+                <h3 id="confirmTitle">تأكيد العملية</h3>
+                <p id="confirmMessage">سيتم حذف جميع التقدم الحالي وتبديل الحروف. هل أنت متأكد؟</p>
                 <div class="dialog-buttons">
                     <button id="confirmYes" class="dialog-btn yes-btn">موافق</button>
                     <button id="confirmNo" class="dialog-btn no-btn">إلغاء</button>
