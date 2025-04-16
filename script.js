@@ -297,14 +297,25 @@ document.addEventListener('DOMContentLoaded', function() {
         const container = document.querySelector('.honeycomb-container');
         const windowWidth = window.innerWidth;
         
+        // تعديل مركز الخلية ليكون في وسط الحاوية
+        const honeycomb = document.querySelector('.honeycomb');
+        
         if (windowWidth <= 400) {
             container.style.height = '340px';
+            honeycomb.style.transform = 'scale(0.45)';
+            honeycomb.style.transformOrigin = 'center center';
         } else if (windowWidth <= 500) {
             container.style.height = '380px';
+            honeycomb.style.transform = 'scale(0.55)';
+            honeycomb.style.transformOrigin = 'center center';
         } else if (windowWidth <= 700) {
             container.style.height = '420px';
+            honeycomb.style.transform = 'scale(0.7)';
+            honeycomb.style.transformOrigin = 'center center';
         } else {
             container.style.height = '540px';
+            honeycomb.style.transform = 'scale(1)';
+            honeycomb.style.transformOrigin = 'center center';
         }
     }
 
