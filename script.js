@@ -152,6 +152,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cell.classList.contains('pink') && !cell.classList.contains('selected-green') && !cell.classList.contains('selected-red')) {
             return;
         }
+        
+        // التحقق مما إذا كانت الخلية خضراء ثابتة (وليس مجرد خلية خضراء محددة)
+        if (cell.classList.contains('green') && !cell.classList.contains('selected-green') && !cell.classList.contains('selected-red')) {
+            // لا تسمح بتغيير لون الخلايا الخضراء الثابتة
+            statusText.innerText = 'لا يمكن تغيير لون الخلايا الخضراء الثابتة';
+            return;
+        }
 
         // حساب التغيير في العدادات قبل تغيير الألوان
         let oldGreen = cell.classList.contains('selected-green') ? 1 : 0;
